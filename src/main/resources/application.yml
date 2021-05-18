@@ -1,0 +1,12 @@
+#Server  properties
+server:
+  port: 8080
+  session-tiemout: 300
+  tomcat:
+    uri-encoding: UTF-8
+  error:
+    whitelabel:
+      enabled: true
+spring:
+  banner:
+    location: classpath:/banner/banner.txt
