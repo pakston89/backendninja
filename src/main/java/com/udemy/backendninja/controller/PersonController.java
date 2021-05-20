@@ -2,47 +2,38 @@ package com.udemy.backendninja.controller;
 
 import com.udemy.backendninja.component.ComponentExample;
 import com.udemy.backendninja.model.Person;
+import com.udemy.backendninja.service.PersonService;
 import com.udemy.backendninja.utils.constants.ViewConstants;
-import com.udemy.backendninja.utils.logs.Log;
+import com.udemy.backendninja.utils.constants.LogConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 
-import java.util.ArrayList;
-import java.util.List;
-
 @RestController
 @RequestMapping("/person")
 public class PersonController {
 
     @Autowired
-    private ModelAndView modelAndView;
+    @Qualifier("personService")
+    private PersonService personService;
 
     @Autowired
     @Qualifier("ComponentExample")
     private ComponentExample componentExample;
 
-    @GetMapping("/getpeopleMAV")
+    @Autowired
+    private ModelAndView modelAndView;
+
+    @GetMapping("/getpeople")
     public ModelAndView getPeopleMAV(){
         modelAndView.setViewName(ViewConstants.PEOPLE_VIEW);
-        modelAndView.addObject("people", getPeople());
+        modelAndView.addObject("people", personService.getListPeople());
         return modelAndView;
     }
-
-    private List<Person> getPeople(){
-        List<Person> people = new ArrayList<Person>();
-        people.add(new Person("Tono", 68));
-        people.add(new Person("Julia", 69));
-        people.add(new Person("Maria", 30));
-        people.add(new Person("Gemma", 28));
-        people.add(new Person("Raul", 27));
-        return people;
-    }
-
     //Dos formas de recibir peticiones GET (@RequestParam vs @PathVariable)
-    @GetMapping("/requestparamMAV1")
+    @GetMapping("/requestparam")
     public ModelAndView requestMAV1(@RequestParam(required = false, defaultValue = "Person") String name){
         modelAndView.setViewName(ViewConstants.REQUESTGET_VIEW);
         modelAndView.addObject("nameModel", name);
@@ -66,7 +57,7 @@ public class PersonController {
 
     @PostMapping("/addperson")
     public ModelAndView addPerson(@ModelAttribute("person") Person person) {
-        Log.loggerPerson.info("Method: addPerson -- Params: " + person);
+        LogConstants.loggerPerson.info("Method: addPerson -- Params: " + person);
         modelAndView.setViewName(ViewConstants.RESULT_VIEW);
         modelAndView.addObject("person", person);
         return modelAndView;
