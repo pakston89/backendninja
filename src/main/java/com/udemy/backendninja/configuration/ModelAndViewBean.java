@@ -7,7 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 @Configuration
 public class ModelAndViewBean {
 
-    @Bean
+    @Bean("modelAndView")
     public ModelAndView modelAndView(){
         return new ModelAndView();
     }

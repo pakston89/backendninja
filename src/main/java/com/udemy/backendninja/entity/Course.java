@@ -30,7 +30,6 @@ public class Course {
     @Column(name = "hours")
     private Integer hours;
 
-
     public Course() {
     }
 

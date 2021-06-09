@@ -3,11 +3,10 @@ package com.udemy.backendninja.service;
 import com.udemy.backendninja.model.Person;
 import com.udemy.backendninja.utils.constants.LogConstants;
 import org.springframework.stereotype.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
-@Service ("personService")
+@Service ("personServiceImpl")
 public class PersonServiceImpl implements PersonService {
 
     @Override

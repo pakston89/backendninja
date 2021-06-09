@@ -16,7 +16,7 @@ import org.springframework.web.servlet.view.RedirectView;
 public class PersonController {
 
     @Autowired
-    @Qualifier("personService")
+    @Qualifier("personServiceImpl")
     private PersonService personService;
 
     @Autowired
